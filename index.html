@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/circle-plugin.css">
+    <title>Rotating Circles Demo</title>
+</head>
+<body>
+<div id="circleContainer" class="rotating-books"></div>
+
+<script type="module">
+    import RotatingCircles from './js/circle-plugin.js';
+
+    const books = [
+        { title: "Гарри Поттер", author: "Роулинг", genre: "Фэнтези", status: "read" },
+        { title: "Мастер и Маргарита", author: "Булгаков", genre: "Роман", status: "reading" },
+    ];
+
+    const circlePlugin = new RotatingCircles("circleContainer", books, {
+        speed: 0.01,
+        radius: 200,
+    });
+
+    // Пример добавления книги позже
+    circlePlugin.addBook({ title: "1984", author: "Оруэлл", genre: "Антиутопия", status: "plan" });
+</script>
+</body>
+</html>

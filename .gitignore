@@ -1,0 +1,23 @@
+# === WebStorm / JetBrains IDEs ===
+.idea/
+*.iml
+
+# === Node modules (если JS проект) ===
+node_modules/
+
+# === OS/system files ===
+.DS_Store
+Thumbs.db
+
+# === Optional: ignore log/temp/output ===
+logs/
+*.log
+*.tmp
+dist/
+build/
+out/
+
+# === Optional: ignore environment/config ===
+.env
+.env.local
+.env.*.local
