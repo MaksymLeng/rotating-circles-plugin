@@ -1,3 +1,5 @@
+/* Styles for the circular mode.
+   By default, .rotating-books is a 400x400 block centered on the page */
 .rotating-books {
     position: absolute;
     width: 400px;
@@ -6,27 +8,36 @@
     top: 50%;
     transform: translate(-50%, -50%);
     transform-origin: center;
-    pointer-events: none;
+    pointer-events: none; /* so clicks pass through the container */
     z-index: 1;
 }
 
-.rotating-books .book-circle {
-    border-radius: 50%;
+/* If "random" mode is enabled,
+   we add the .random-mode class in JS to the same container.
+   Let's make it fill the entire viewport, for example: */
+.random-mode {
+    position: relative; /* or absolute, up to you */
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    transform: none;
 }
 
+/* Common circle styles */
 .book-circle {
     position: absolute;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: #5bc0de;
+    background: #5bc0de; /* default color for "reading" status */
     font-weight: bold;
     font-size: 14px;
     color: #fff;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     transform: translate(-50%, -50%);
     cursor: pointer;
-    pointer-events: auto;
+    pointer-events: auto; /* so the circle can catch clicks */
     user-select: none;
     display: flex;
     align-items: center;
@@ -34,6 +45,7 @@
     z-index: 2;
 }
 
+/* Inner wrapper that can rotate independently */
 .book-content {
     transform: rotate(0deg);
     display: flex;
@@ -44,6 +56,7 @@
     gap: 1px;
 }
 
+/* Book details (author, genre, status) */
 .book-details {
     margin: 0;
     display: none;
@@ -57,6 +70,7 @@
     transition: opacity 0.3s ease;
 }
 
+/* When the circle is expanded (clicked) */
 .book-circle.expanded {
     transform: translate(-50%, -50%) scale(3);
     z-index: 10;
@@ -70,24 +84,25 @@
     transform-origin: top;
 }
 
+/* Hide the short title (one letter) when expanded, to avoid overlap */
 .book-circle.expanded .book-title {
     display: none;
 }
 
+/* Text styling inside the circle */
 .book-circle span {
     font-size: 14px;
     color: #ffffff;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
+/* Colors for different statuses (customize as you wish) */
 .book-circle.plan {
-    background-color: #f0ad4e;
+    background-color: #f0ad4e; /* orange */
 }
-
 .book-circle.reading {
-    background-color: #5bc0de;
+    background-color: #5bc0de; /* blue */
 }
-
 .book-circle.read {
-    background-color: #5cb85c;
+    background-color: #5cb85c; /* green */
 }

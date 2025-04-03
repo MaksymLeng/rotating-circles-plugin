@@ -1,28 +1,45 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./css/circle-plugin.css">
     <title>Rotating Circles Demo</title>
 </head>
 <body>
+
+<!-- Container. If mode="circular", you can keep class="rotating-books".
+     If mode="random", the plugin will add .random-mode from the inside. -->
 <div id="circleContainer" class="rotating-books"></div>
 
 <script type="module">
     import RotatingCircles from './js/circle-plugin.js';
 
+    // Sample array of books
     const books = [
-        { title: "Гарри Поттер", author: "Роулинг", genre: "Фэнтези", status: "read" },
-        { title: "Мастер и Маргарита", author: "Булгаков", genre: "Роман", status: "reading" },
+        { title: "Harry Potter", author: "J.K. Rowling", genre: "Fantasy", status: "read" },
+        { title: "1984", author: "George Orwell", genre: "Dystopian", status: "reading" },
+        { title: "Piknik", author: "Strugatsky Brothers", genre: "Sci-Fi", status: "plan" },
     ];
 
-    const circlePlugin = new RotatingCircles("circleContainer", books, {
-        speed: 0.01,
-        radius: 200,
+    // Initialize the plugin
+    // mode: "circular" (default) or "random"
+    const plugin = new RotatingCircles("circleContainer", books, {
+        mode: "random",             // enable "flying" mode
+        randomSpeedRange: [0.5, 2], // speeds range from 0.5 to 2 px per frame
+        radius: 150,                // used only for circular mode
+        speed: 0.02                 // used only for circular mode
     });
 
-    // Пример добавления книги позже
-    circlePlugin.addBook({ title: "1984", author: "Оруэлл", genre: "Антиутопия", status: "plan" });
+    // Example of adding a book after startup
+    setTimeout(() => {
+        plugin.addBook({
+            title: "Master i Margarita",
+            author: "Bulgakov",
+            genre: "Mystic",
+            status: "plan"
+        });
+    }, 2000);
 </script>
 </body>
 </html>
+
