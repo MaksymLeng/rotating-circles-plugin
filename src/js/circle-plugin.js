@@ -37,7 +37,7 @@ export default class RotatingCircles {
 
     // Public method — add a new book after initialization
     addBook(book) {
-        this.books.push(book);
+        this.books.push(book);//there may be an error with local storage check
         this.addBookCircle(book);
     }
 
