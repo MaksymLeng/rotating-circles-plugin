@@ -2,7 +2,7 @@
 .idea/
 *.iml
 
-# === Node modules (если JS проект) ===
+# === Node modules ===
 node_modules/
 
 # === OS/system files ===
@@ -13,7 +13,6 @@ Thumbs.db
 logs/
 *.log
 *.tmp
-dist/
 build/
 out/
 
