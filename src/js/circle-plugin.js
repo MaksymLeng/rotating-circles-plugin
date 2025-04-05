@@ -56,9 +56,9 @@ export default class RotatingCircles {
                 <span class="book-icon">${statusIcon}</span>
                 <span class="book-title">${book.title[0].toUpperCase()}</span>
                 <div class="book-details">
-                    <p>Автор: ${book.author}</p>
-                    <p>Жанр: ${book.genre || "_"}</p>
-                    <p>Статус: ${book.status}</p>
+                    <p>Autor: ${book.author}</p>
+                    <p>Title: ${book.title}</p>
+                    <p>Genre: ${book.genre || "_"}</p>
                 </div>
             </div>
         `;

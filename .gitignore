@@ -4,6 +4,8 @@
 
 # === Node modules ===
 node_modules/
+package.json
+package-lock.json
 
 # === OS/system files ===
 .DS_Store
