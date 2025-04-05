@@ -70,6 +70,18 @@ export default class RotatingCircles {
             this.isPaused = !!this.container.querySelector(".book-circle.expanded");
         });
 
+        // Remove the pause when clicking outside the circles (on the container)
+        document.addEventListener("click", (event) => {
+            if (!event.target.closest(".book-circle")) {
+                this.isPaused = false;
+                circle.classList.remove("expanded");
+                const expanded = this.container.querySelectorAll(".book-circle.expanded");
+                expanded.forEach((circle) => {
+                    circle.classList.remove("expanded");
+                })
+            }
+        });
+
         // Add the circle to the DOM
         this.container.appendChild(circle);
 
