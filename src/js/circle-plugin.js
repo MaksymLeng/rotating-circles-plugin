@@ -10,6 +10,7 @@ export default class RotatingCircles {
             radius: options.radius || 150,     // Radius for the circular mode
             speed: options.speed || 0.01,      // Rotation speed (circular mode)
             mode: options.mode || "circular",  // "circular" or "random"
+            maxFps: options.maxFps || 60,
             // Speed range for X/Y movement in random mode
             randomSpeedRange: options.randomSpeedRange || [0.5, 2],
         };
@@ -18,6 +19,7 @@ export default class RotatingCircles {
         this.parentAngle = 0;       // Rotation angle for the circular mode
         this.isPaused = false;      // Pause animation when a circle is expanded
         this.circlesData = [];      // For random mode (positions/speeds of circles)
+        this.lastFrameTime = 0;
 
         // If random mode, we add a specific class to the container (for styling)
         if (this.config.mode === "random") {
@@ -213,7 +215,14 @@ export default class RotatingCircles {
     }
 
     // Infinite animation via requestAnimationFrame
-    animate() {
+    animate(timestamp) {
+        const delta = timestamp - this.lastFrameTime;
+        if (delta < 1000 / this.config.maxFps) {
+            requestAnimationFrame(this.animate.bind(this));
+            return;
+        }
+        this.lastFrameTime = timestamp;
+
         if (this.config.mode === "circular" && !this.isPaused) {
             // If mode is "circular" and not paused — increment the angle
             this.parentAngle += this.config.speed;
