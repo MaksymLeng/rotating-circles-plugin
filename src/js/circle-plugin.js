@@ -66,10 +66,23 @@ export default class RotatingCircles {
         `;
 
         // Expand on click
-        circle.addEventListener("click", () => {
-            circle.classList.toggle("expanded");
-            // If there is at least one expanded circle, set "isPaused = true"
-            this.isPaused = !!this.container.querySelector(".book-circle.expanded");
+        circle.addEventListener("click", async () => {
+            // second click
+            if (circle.classList.contains("expanded")) {
+                if (book.fileName) {
+                    const openEvent = new CustomEvent("book-open-requested", {
+                        detail: {
+                            fileName: book.fileName,
+                            book: book
+                        }
+                    });
+                    window.dispatchEvent(openEvent);
+                }
+            } else {
+                // first click
+                circle.classList.add("expanded");
+                this.isPaused = true;
+            }
         });
 
         // Remove the pause when clicking outside the circles (on the container)
