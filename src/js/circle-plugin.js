@@ -65,25 +65,39 @@ export default class RotatingCircles {
             </div>
         `;
 
+        let clickTimeout;
+
         // Expand on click
         circle.addEventListener("click", async () => {
             // second click
             if (circle.classList.contains("expanded")) {
-                if (book.fileName) {
-                    const openEvent = new CustomEvent("book-open-requested", {
-                        detail: {
-                            fileName: book.fileName,
-                            book: book
-                        }
-                    });
-                    window.dispatchEvent(openEvent);
-                }
+                clickTimeout = setTimeout(() => {
+
+                    if (book.fileName) {
+                        const openEvent = new CustomEvent("book-open-requested", {
+                            detail: {
+                                fileName: book.fileName,
+                                book: book
+                            }
+                        });
+                        window.dispatchEvent(openEvent);
+                    }
+
+                },300);
             } else {
                 // first click
                 circle.classList.add("expanded");
                 this.isPaused = true;
             }
         });
+        // Expand on dblclick
+        circle.addEventListener("dblclick", (e) => {
+            e.stopPropagation();
+
+            clearTimeout(clickTimeout);
+            circle.classList.remove("expanded");
+            this.isPaused = false;
+        })
 
         // Remove the pause when clicking outside the circles (on the container)
         document.addEventListener("click", (event) => {
@@ -148,19 +162,22 @@ export default class RotatingCircles {
             const x = offsetX + radius * Math.cos(angle);
             const y = offsetY + radius * Math.sin(angle);
 
-            circle.style.left = `${x}px`;
-            circle.style.top = `${y}px`;
+            circle.style.transform = `translate(${x}px, ${y}px)`
 
             // Rotate the content so it's not upside down
+            this.updateBookContent(circle, angle)
+        });
+    }
+
+    updateBookContent(circle, angle) {
             const content = circle.querySelector(".book-content");
             const degrees = (angle * 180) / Math.PI;
 
             if (circle.classList.contains("expanded")) {
                 content.style.transform = `rotate(0deg)`;
-            } else {
+            } else if (!this.isPaused){
                 content.style.transform = `rotate(${-degrees + 180}deg)`;
             }
-        });
     }
 
     initRandomData() {
@@ -182,7 +199,9 @@ export default class RotatingCircles {
                 x: startX,
                 y: startY,
                 vx: speedX,
-                vy: speedY
+                vy: speedY,
+                angle: Math.random() * 360,
+                rotationRate: (Math.random() - 0.7) * 0.7,
             });
 
             circle.style.left = `${startX}px`;
@@ -224,6 +243,9 @@ export default class RotatingCircles {
             // Update position styles
             data.element.style.left = `${data.x}px`;
             data.element.style.top = `${data.y}px`;
+            data.angle += data.rotationRate;
+
+            this.updateBookContent(data.element, data.angle * Math.PI / 180);
         });
     }
 

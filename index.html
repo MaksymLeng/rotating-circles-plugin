@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="src/css/circle-plugin.css">
+    <link rel="stylesheet" href="dist/circle-plugin.css">
     <title>Rotating Circles Demo</title>
 </head>
 <body>
 
-<!-- Container. If mode="circular", you can keep class="rotating-books".
-     If mode="random", the plugin will add .random-mode from the inside. -->
 <div id="circleContainer" class="rotating-books"></div>
 
 <script type="module">
-    import RotatingCircles from './src/js/circle-plugin.js';
+    import RotatingCircles from './dist/circle-plugin.min.js';
 
     // Sample array of books
     const books = [
@@ -27,7 +25,7 @@
         mode: "random",             // enable "flying" mode
         randomSpeedRange: [0.5, 2], // speeds range from 0.5 to 2 px per frame
         radius: 150,                // used only for circular mode
-        speed: 0.02                 // used only for circular mode
+        speed: 0.04                 // used only for circular mode
     });
 
     // Example of adding a book after startup
