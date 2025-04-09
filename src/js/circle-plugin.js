@@ -162,7 +162,8 @@ export default class RotatingCircles {
             const x = offsetX + radius * Math.cos(angle);
             const y = offsetY + radius * Math.sin(angle);
 
-            circle.style.transform = `translate(${x}px, ${y}px)`
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
 
             // Rotate the content so it's not upside down
             this.updateBookContent(circle, angle)
