@@ -1,4 +1,3 @@
-// If you're using ES modules:
 export default class RotatingCircles {
     constructor(containerId, initialBooks = [], options = {}) {
         // Find the container to render circles into
@@ -68,11 +67,11 @@ export default class RotatingCircles {
         let clickTimeout;
 
         // Expand on click
-        circle.addEventListener("click", async () => {
+        circle.addEventListener("click",  () => {
             // second click
+            clearTimeout(clickTimeout);
             if (circle.classList.contains("expanded")) {
                 clickTimeout = setTimeout(() => {
-
                     if (book.fileName) {
                         const openEvent = new CustomEvent("book-open-requested", {
                             detail: {
@@ -82,7 +81,6 @@ export default class RotatingCircles {
                         });
                         window.dispatchEvent(openEvent);
                     }
-
                 },300);
             } else {
                 // first click
@@ -93,7 +91,6 @@ export default class RotatingCircles {
         // Expand on dblclick
         circle.addEventListener("dblclick", (e) => {
             e.stopPropagation();
-
             clearTimeout(clickTimeout);
             circle.classList.remove("expanded");
             this.isPaused = false;
@@ -101,7 +98,7 @@ export default class RotatingCircles {
 
         // Remove the pause when clicking outside the circles (on the container)
         document.addEventListener("click", (event) => {
-            if (!event.target.closest(".book-circle")) {
+            if (!event.target.closest(".book-circle") && !document.getElementById("readerModal")) {
                 this.isPaused = false;
                 circle.classList.remove("expanded");
                 const expanded = this.container.querySelectorAll(".book-circle.expanded");
@@ -171,14 +168,14 @@ export default class RotatingCircles {
     }
 
     updateBookContent(circle, angle) {
-            const content = circle.querySelector(".book-content");
-            const degrees = (angle * 180) / Math.PI;
+        const content = circle.querySelector(".book-content");
+        const degrees = (angle * 180) / Math.PI;
 
-            if (circle.classList.contains("expanded")) {
-                content.style.transform = `rotate(0deg)`;
-            } else if (!this.isPaused){
-                content.style.transform = `rotate(${-degrees + 180}deg)`;
-            }
+        if (circle.classList.contains("expanded")) {
+            content.style.transform = `rotate(0deg)`;
+        } else if (!this.isPaused){
+            content.style.transform = `rotate(${-degrees + 180}deg)`;
+        }
     }
 
     initRandomData() {
