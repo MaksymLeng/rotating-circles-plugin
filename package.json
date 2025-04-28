@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build" : "esbuild src/js/circle-plugin.js --bundle --minify --format=esm --outfile=dist/circle-plugin.min.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.2"
+  }
+}

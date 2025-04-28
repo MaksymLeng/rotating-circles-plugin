@@ -43,6 +43,7 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
+    transition: left 0.05s linear, top 0.05s linear;
 }
 
 /* Inner wrapper that can rotate independently */

@@ -162,8 +162,8 @@ export default class RotatingCircles {
             const x = offsetX + radius * Math.cos(angle);
             const y = offsetY + radius * Math.sin(angle);
 
-            circle.style.left = `${x}px`;
-            circle.style.top = `${y}px`;
+            circle.style.left = `${circle.offsetLeft + (x-circle.offsetLeft) * 0.1}px`;
+            circle.style.top = `${circle.offsetTop +(y-circle.offsetTop) * 0.1}px`;
 
             // Rotate the content so it's not upside down
             this.updateBookContent(circle, angle)
@@ -261,7 +261,7 @@ export default class RotatingCircles {
 
         if (this.config.mode === "circular" && !this.isPaused) {
             // If mode is "circular" and not paused — increment the angle
-            this.parentAngle += this.config.speed;
+            this.parentAngle += this.config.speed * (delta / 16.67);
         }
 
         // Update positions
