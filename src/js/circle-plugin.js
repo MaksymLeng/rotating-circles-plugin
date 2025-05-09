@@ -258,7 +258,7 @@ export default class RotatingCircles {
 
         if (this.config.mode === "circular" && !this.isPaused) {
             // If mode is "circular" and not paused — increment the angle
-            this.parentAngle += this.config.speed * (delta / 16.67);
+            this.parentAngle += this.config.speed;
         }
 
         // Update positions
